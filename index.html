@@ -283,7 +283,8 @@ section.block{padding:96px 0}
 .rv .who b{display:block;font-size:15px}
 .rv .who small{color:var(--muted);font-size:13px}
 .rv.ph{border-style:dashed;background:transparent}
-.rv.ph q{color:var(--muted)}
+.rv.ph q{color:#c9d0d5}
+.sample{align-self:flex-start;font:700 11px var(--font-body);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:3px 10px}
 
 /* area + faq */
 .area{display:grid;gap:40px}
@@ -713,7 +714,10 @@ const badgeHTML=`<div class="av">${pics.length?pics.slice(0,4).map(src=>`<img sr
 $$("[data-badge]").forEach(b=>b.innerHTML=badgeHTML);
 $("#review-list").innerHTML=CONFIG.reviews.length
   ? CONFIG.reviews.map((r,i)=>`<figure class="rv" style="margin:0" data-rv><q>${esc(r.text)}</q><figcaption class="who">${r.photo?`<img src="${esc(r.photo)}" alt="" width="38" height="38" style="border-radius:50%;object-fit:cover">`:`<span style="background:${AV[i%4]}">${esc(initials(r.name))}</span>`}<div><b>${esc(r.name)}</b><small>${esc(r.town||"")}</small></div></figcaption></figure>`).join("")
-  : [1,2,3].map(i=>`<figure class="rv ph" style="margin:0"><q>Your customer's review goes here. Add real reviews in the settings.</q><figcaption class="who"><span style="background:${AV[i%4]}">?</span><div><b>Customer name</b><small>Town</small></div></figcaption></figure>`).join("");
+  : [["They showed up when they said, had the old roof off and the new one on in two days, and cleaned up every nail. Fair price and straight answers.","New roof","Franklin"],
+     ["Had a leak around the chimney nobody else could find. Fixed it the same week and checked our gutters while they were up there.","Leak repair","Highlands"],
+     ["Easy to reach, quick quote, and the crew was respectful of our property. The new roof looks great.","Re-roof","Sylva"]]
+    .map(([t,job,town],i)=>`<figure class="rv ph" style="margin:0"><span class="sample">Sample review</span><q>${t}</q><figcaption class="who"><span style="background:${AV[i%4]}">★</span><div><b>${job}</b><small>${town}, NC · placeholder until real reviews are added</small></div></figcaption></figure>`).join("");
 
 /* ---- header ---- */
 const hdr=$("#hdr");
