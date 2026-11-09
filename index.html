@@ -594,7 +594,7 @@ footer a{display:block;text-decoration:none;padding:4px 0}footer a:hover{color:v
       </div>
       <div data-rv><div class="tbadge" data-badge></div></div>
     </div>
-    <div class="reviews" id="review-list"></div>
+    <div class="reviews" id="review-list" style="display:none"></div>
     <p style="margin-top:22px"><a class="btn btn-ghost" data-fb href="#"><svg><use href="#i-fb"/></svg>See our work &amp; reviews on Facebook</a></p>
   </div>
 </section>
@@ -712,12 +712,10 @@ const pics=CONFIG.badgePhotos.length?CONFIG.badgePhotos:CONFIG.reviews.map(r=>r.
 const badgeHTML=`<div class="av">${pics.length?pics.slice(0,4).map(src=>`<img src="${esc(src)}" alt="" width="26" height="26">`).join(""):names.slice(0,4).map((n,i)=>`<span style="background:${AV[i%4]}">${esc(initials(n))}</span>`).join("")}</div>
   <p>${CONFIG.reviewCount?`<span class="stars" aria-hidden="true">★★★★★</span><strong>${esc(CONFIG.reviewCount)}</strong> 5-star reviews`:"Trusted by local homeowners"}</p>`;
 $$("[data-badge]").forEach(b=>b.innerHTML=badgeHTML);
+$("#review-list").style.display=CONFIG.reviews.length?"":"none";
 $("#review-list").innerHTML=CONFIG.reviews.length
   ? CONFIG.reviews.map((r,i)=>`<figure class="rv" style="margin:0" data-rv><q>${esc(r.text)}</q><figcaption class="who">${r.photo?`<img src="${esc(r.photo)}" alt="" width="38" height="38" style="border-radius:50%;object-fit:cover">`:`<span style="background:${AV[i%4]}">${esc(initials(r.name))}</span>`}<div><b>${esc(r.name)}</b><small>${esc(r.town||"")}</small></div></figcaption></figure>`).join("")
-  : [["They showed up when they said, had the old roof off and the new one on in two days, and cleaned up every nail. Fair price and straight answers.","New roof","Franklin"],
-     ["Had a leak around the chimney nobody else could find. Fixed it the same week and checked our gutters while they were up there.","Leak repair","Highlands"],
-     ["Easy to reach, quick quote, and the crew was respectful of our property. The new roof looks great.","Re-roof","Sylva"]]
-    .map(([t,job,town],i)=>`<figure class="rv ph" style="margin:0"><span class="sample">Sample review</span><q>${t}</q><figcaption class="who"><span style="background:${AV[i%4]}">★</span><div><b>${job}</b><small>${town}, NC · placeholder until real reviews are added</small></div></figcaption></figure>`).join("");
+  : "";
 
 /* ---- header ---- */
 const hdr=$("#hdr");
